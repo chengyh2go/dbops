@@ -1,0 +1,33 @@
+SELECT
+aaa.nspname AS "模式名",
+aaa.relname AS "表名",
+aaa.table_comment AS "中文表明",
+ccc.attname AS "分布键"
+FROM
+(
+SELECT
+aa.oid,
+obj_description (aa.oid) AS table_comment,
+aa.relname,
+bb.localoid,
+bb.attrnums,
+regexp_split_to_table(
+array_to_string(bb.attrnums, ','),
+','
+) att,
+dd.nspname
+FROM
+pg_class aa --原数据信息 最重要的表！
+LEFT JOIN gp_distribution_policy bb ON bb.localoid = aa.oid --分布键表
+LEFT JOIN pg_namespace dd ON dd.oid = aa.relnamespace --模式
+LEFT JOIN pg_inherits hh ON aa.oid = hh.inhrelid --继承表
+WHERE
+dd.nspname = 'public' -- 替换成需要的模式
+AND hh.inhrelid IS NULL
+) aaa
+LEFT JOIN pg_attribute ccc ON ccc.attrelid = aaa.oid
+AND ccc.attnum = aaa.att
+WHERE
+ccc.attnum > 0
+ORDER BY
+aaa.relname;
