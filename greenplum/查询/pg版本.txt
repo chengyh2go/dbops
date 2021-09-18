@@ -1,1 +1,1 @@
-SELECT version();
+SELECT version(); --adb pg 4.3版本对应的pg版本为8.2.15
