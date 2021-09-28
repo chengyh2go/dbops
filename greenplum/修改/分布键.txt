@@ -1,0 +1,1 @@
+ALTER TABLE dest_table_name set distributed by(column_name);
