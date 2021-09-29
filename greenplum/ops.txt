@@ -1,0 +1,6 @@
+-- 查询数据库
+select datname from pg_database;
+
+-- 查询数据库及数据库大小
+select datname,pg_size_pretty(pg_database_size(datname)) from pg_database;
+
