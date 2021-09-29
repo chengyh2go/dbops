@@ -4,3 +4,11 @@ select datname from pg_database;
 -- 查询数据库及数据库大小
 select datname,pg_size_pretty(pg_database_size(datname)) from pg_database;
 
+--导入外表数据到本地表，方式一：insert
+INSERT INTO <本地目标表> SELECT * FROM <外表>;
+
+--导入外表数据到本地表，方式一：create
+CREATE TABLE <本地目标表> AS SELECT * FROM <外表>;
+
+
+
