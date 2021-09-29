@@ -53,5 +53,8 @@ INSERT INTO <本地目标表> SELECT * FROM <外表>;
 --导入外表数据到本地表，方式二：create
 CREATE TABLE <本地目标表> AS SELECT * FROM <外表>;
 
-
-
+-- 对系统表的操作
+select * from pg_catalog.pg_foreign_table;
+set allow_system_table_mods=True;
+insert into pg_catalog.pg_foreign_table(ftrelid,ftserver) values(123,123);
+delete from pg_catalog.pg_foreign_table;
