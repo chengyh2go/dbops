@@ -4,10 +4,53 @@ select datname from pg_database;
 -- 查询数据库及数据库大小
 select datname,pg_size_pretty(pg_database_size(datname)) from pg_database;
 
---导入外表数据到本地表，方式一：insert
+
+++++++++++++++++++跟外表相关的操作（以阿里的adb pg环境为例）+++++++++++++++++++++++++++++++++
+-- 1 在AnalyticDB PostgreSQL数据库中创建ODPS FDW插件，写：pg_catalog.pg_extension
+CREATE EXTENSION odps_fdw; 
+
+-- 2 将使用权赋权给所有用户，示例如下：
+GRANT USAGE ON FOREIGN DATA WRAPPER odps_fdw TO PUBLIC;
+
+-- 3 创建 ODPS Server，写：pg_catalog.pg_foreign_server
+CREATE SERVER odps_serv
+  FOREIGN DATA WRAPPER odps_fdw
+  OPTIONS (
+    odps_endpoint 'http://service.cn-shanghai-test-d01.odps.ops.aliyun.jq.cics:80/api'
+  );
+
+-- 4 创建 ODPS User Mapping
+CREATE USER MAPPING FOR  PUBLIC
+  SERVER odps_serv
+  OPTIONS (
+    id '<odps access id>', --MaxCompute Account ID
+    key '<odps access key>' --MaxCompute Account Key
+  );
+
+-- 5 创建外表，写：pg_catalog.pg_foreign_table
+CREATE FOREIGN TABLE IF NOT EXISTS ft_ads_uid_label (
+uid  TEXT,
+uid_type  TEXT,
+equp_id  TEXT --示例字段
+)
+  SERVER odps_serv
+  OPTIONS (
+    project 'MC_IDP_dev',                   -- ODPS 项目空间
+    table 'ads_uid_label',                       -- ODPS 表名称
+    partition 'ds=20210923'
+);
+
+-- 6 创建本地表
+CREATE TABLE test_local_ads_uid_label (
+  uid  TEXT,
+  uid_type  TEXT,
+  equp_id  TEXT --示例字段
+);
+
+--7 导入外表数据到本地表，方式一：insert
 INSERT INTO <本地目标表> SELECT * FROM <外表>;
 
---导入外表数据到本地表，方式一：create
+--导入外表数据到本地表，方式二：create
 CREATE TABLE <本地目标表> AS SELECT * FROM <外表>;
 
 
