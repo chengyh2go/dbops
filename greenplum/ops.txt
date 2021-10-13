@@ -77,5 +77,7 @@ set allow_system_table_mods=True;
 insert into pg_catalog.pg_foreign_table(ftrelid,ftserver) values(123,123);
 delete from pg_catalog.pg_foreign_table;
 
--- 删除外表
+-- 删除external外表
 drop external table ft_text_test01;
+-- 删除foreign外表
+drop foreign table ft_text_test01;
