@@ -29,6 +29,8 @@ CREATE EXTENSION odps_fdw;
 
 -- 2 将使用权赋权给所有用户，示例如下：
 GRANT USAGE ON FOREIGN DATA WRAPPER odps_fdw TO PUBLIC;
+或者，赋给某个用户：
+GRANT USAGE ON FOREIGN DATA WRAPPER odps_fdw TO quickbidev;
 
 -- 3 创建 ODPS Server，写：pg_catalog.pg_foreign_server
 CREATE SERVER odps_serv
@@ -44,6 +46,14 @@ CREATE USER MAPPING FOR  PUBLIC
     id '<odps access id>', --MaxCompute Account ID
     key '<odps access key>' --MaxCompute Account Key
   );
+ 
+  CREATE USER MAPPING FOR  quickbidev
+  SERVER odps_serv_2                                  -- ODPS Server 名称
+  OPTIONS (
+    id '<odps access id>',                                -- ODPS Account ID
+    key '<odps access key>'                               -- ODPS Account Key
+  );
+  --写到了pg_catalog.pg_user_mappings这个视图中
 
 -- 5 创建外表，写：pg_catalog.pg_foreign_table
 CREATE FOREIGN TABLE IF NOT EXISTS ft_ads_uid_label (
