@@ -14,6 +14,14 @@ CREATE TABLE dest_table_name (like source_table_name);
 --如果索引、主键约束和唯一约束需要被复制的话，那么需要在后面加上参数including indexes
 CREATE TABLE dest_table_name (like source_table_name including indexes);
 
+-- 查询Greenplum下一个schema中表的owner,示例以"public"为例
+select c.relname,  pg_catalog.pg_get_userbyid(c.relowner) as "Owner"
+from pg_catalog.pg_class c, pg_catalog.pg_namespace n
+where
+n.oid = c.relnamespace
+and n.nspname='schema_name'
+and  c.relkind='r'  and relstorage in ('h', 'a');
+
 
 ++++++++++++++++++跟外表相关的操作（以阿里的adb pg环境为例）+++++++++++++++++++++++++++++++++
 -- 1 在AnalyticDB PostgreSQL数据库中创建ODPS FDW插件，写：pg_catalog.pg_extension
