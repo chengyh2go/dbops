@@ -1,12 +1,12 @@
 --删除分区
---一次删除一个分区。
+一次删除一个分区。
 alter table <table_name> drop [if exists] partition <pt_spec>;
---一次删除多个分区。
+一次删除多个分区。
 alter table <table_name> drop [if exists] partition <pt_spec>,partition <pt_spec>[,partition <pt_spec>....];
 示例：
---从表sale_detail中删除一个分区，2013年12月分区的销售记录。
+从表sale_detail中删除一个分区，2013年12月分区的销售记录。
 alter table sale_detail drop if exists partition(sale_date='201312'); 
---从表sale_detail中同时删除两个分区，2013年12月杭州和上海分区的销售记录。
+从表sale_detail中同时删除两个分区，2013年12月杭州和上海分区的销售记录。
 alter table sale_detail drop if exists partition(sale_date='201312',region='hangzhou'),partition(sale_date='201312',region='shanghai');
 
 --添加分区
@@ -19,3 +19,5 @@ partition_col是分区字段，partition_col_value是分区值。分区字段不
 示例：
 alter table sale_detail add if not exists partition (sale_date='20111011');
 
+--将一个分区的数据插入到另外一个分区：注意select不能使用*，要把除ds之外的字段名都写上
+insert overwrite table_test partition(ds='20211111') select id,name from table_test where ds='20210101');
