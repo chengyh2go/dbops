@@ -1,3 +1,5 @@
+--查询版本
+select version();
 
 -- 查询数据库
 select datname from pg_database;
