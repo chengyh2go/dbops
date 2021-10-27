@@ -2,6 +2,11 @@
 -- 查询数据库
 select datname from pg_database;
 
+--查询表
+select * from pg_class;
+示例：select * from pg_class where relname='ads_uid_label';
+select * from pg_class where relname like '%ads_uid_label%';
+
 -- 查询数据库及数据库大小
 select datname,pg_size_pretty(pg_database_size(datname)) from pg_database;
 
