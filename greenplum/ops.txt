@@ -104,3 +104,6 @@ delete from pg_catalog.pg_foreign_table;
 drop external table ft_text_test01;
 -- 删除foreign外表
 drop foreign table ft_text_test01;
+
+--将表的一列都置为同一个值：
+UPDATE test_ads_uid_label SET ds='20211029';
