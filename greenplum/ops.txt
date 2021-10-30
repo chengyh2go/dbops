@@ -32,7 +32,7 @@ select c.relname,  pg_catalog.pg_get_userbyid(c.relowner) as "Owner"
 from pg_catalog.pg_class c, pg_catalog.pg_namespace n
 where
 n.oid = c.relnamespace
-and n.nspname='schema_name'
+and n.nspname='public'
 and  c.relkind='r'  and relstorage in ('h', 'a');
 
 
