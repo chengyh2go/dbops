@@ -107,3 +107,14 @@ drop foreign table ft_text_test01;
 
 --将表的一列都置为同一个值：
 UPDATE test_ads_uid_label SET ds='20211029';
+
+--增加字段
+ALTER TABLE table_name
+ADD COLUMN new_column_name data_type;
+
+--同时增加多个字段
+ALTER TABLE table_name
+ADD COLUMN new_column_name_1 data_type constraint,
+ADD COLUMN new_column_name_2 data_type constraint,
+...
+ADD COLUMN new_column_name_n data_type constraint;
