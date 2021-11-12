@@ -10,6 +10,9 @@ select * from pg_class;
 select * from pg_class where relname='ads_uid_label';
 select * from pg_class where relname like '%ads_uid_label%';
 
+--查询字段名
+select attname from pg_attribute where attrelid='public.t1'::regclass;
+
 --查询字段
 select * from pg_attribute;
 --示例
