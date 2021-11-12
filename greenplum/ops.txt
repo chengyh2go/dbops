@@ -118,3 +118,9 @@ ADD COLUMN new_column_name_1 data_type constraint,
 ADD COLUMN new_column_name_2 data_type constraint,
 ...
 ADD COLUMN new_column_name_n data_type constraint;
+
+
+--增加字段注释
+comment on column chengyh_test01.username is '用户名';
+--增加表注释
+comment on table chengyh_test01 is '报表';
