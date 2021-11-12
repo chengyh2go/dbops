@@ -13,6 +13,24 @@ select * from pg_class where relname like '%ads_uid_label%';
 --查询字段名
 select attname from pg_attribute where attrelid='public.t1'::regclass;
 
+--查询表字段的注释信息
+SELECT 'tablename' as table_name
+ ,a.attname AS column_name
+ ,format_type(a.atttypid, a.atttypmod) AS data_type
+ ,d.description AS description
+  ,a.attnum
+ ,a.attnotnull AS notnull
+ ,coalesce(p.indisprimary, FALSE) AS primary_key
+ ,f.adsrc AS default_val
+FROM pg_attribute a
+LEFT JOIN pg_index p ON p.indrelid = a.attrelid AND a.attnum = ANY(p.indkey)
+LEFT JOIN pg_description d ON d.objoid = a.attrelid AND d.objsubid = a.attnum
+LEFT JOIN pg_attrdef f ON f.adrelid = a.attrelid AND f.adnum = a.attnum
+WHERE a.attnum > 0
+AND NOT a.attisdropped
+AND a.attrelid = 'tablename'::regclass
+ORDER BY a.attnum;
+
 --查询字段
 select * from pg_attribute;
 --示例
