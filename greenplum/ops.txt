@@ -4,11 +4,18 @@ select version();
 -- 查询数据库
 select datname from pg_database;
 
+-- 查询库占用的存储空间大小
+select pg_size_pretty(pg_database_size( 'MyDatabase' ));
+
 --查询表
 select * from pg_class;
 --示例：
 select * from pg_class where relname='ads_uid_label';
 select * from pg_class where relname like '%ads_uid_label%';
+
+--查询表占用的存储空间大小
+select pg_size_pretty(pg_relation_size('relation_name')) ;
+
 
 --查询字段名
 select attname from pg_attribute where attrelid='public.t1'::regclass;
