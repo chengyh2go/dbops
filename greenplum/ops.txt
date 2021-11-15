@@ -22,7 +22,7 @@ select pg_size_pretty(pg_relation_size('relation_name')) ;
 --查询字段名
 select attname from pg_attribute where attrelid='public.t1'::regclass;
 
---查询表字段的注释信息
+--查询表字段名、字段类型、字段注释信息
 SELECT 'tablename' as table_name
  ,a.attname AS column_name
  ,format_type(a.atttypid, a.atttypmod) AS data_type
@@ -39,6 +39,9 @@ WHERE a.attnum > 0
 AND NOT a.attisdropped
 AND a.attrelid = 'tablename'::regclass
 ORDER BY a.attnum;
+
+--修改字段类型
+alter table t1  alter column sex type bigint using(sex::bigint);
 
 --查询字段
 select * from pg_attribute;
