@@ -1,0 +1,30 @@
+常用数据类型
+(1)、数值类型
+类型                          存储空间                描述
+smallint                        2字节                 小范围整数
+integer                         4字节                 常用整数
+bigint                          8字节                 大范围整数
+decimal                         可变长                 用户声明精度
+numeric                         可变长                 用户声明精度
+real                            4字节                 变精度，不精确
+double precision                8字节                 变精度，不精确
+serial                          4字节                 自增整数
+bigserial                       8字节                 大范围自增整数
+
+
+
+(2)、字符类型
+类型                              范围
+vachar(n)                           变长，有长度限制                        
+char(n)                             定长，不足补空白
+text                                变长，无长度限制    
+
+
+(3)、时间类型
+类型                              存储空间                描述
+timestamp[(p)][without time zone]   8字节                 时间和日期
+timestamp[(p)] without time zone    8字节                 时间和日期，带区时
+inteval[(p)]                        8字节                 时间间隔
+date                                4字节                 只用于表示日期
+time[(p)][without time zone]        8字节                 只用于表示一日内时间
+time[(p)] without time zone         12字节                    只用于表示一日内时间，带区时
