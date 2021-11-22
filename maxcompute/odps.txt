@@ -21,3 +21,6 @@ alter table sale_detail add if not exists partition (sale_date='20111011');
 
 --将一个分区的数据插入到另外一个分区：注意select不能使用*，要把除ds之外的字段名都写上
 insert overwrite table_test partition(ds='20211111') select id,name from table_test where ds='20210101');
+
+--修改字段备注
+alter table sale_detail change column customer comment 'customer';
