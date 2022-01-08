@@ -159,4 +159,14 @@ comment on column chengyh_test01.username is '用户名';
 comment on table chengyh_test01 is '报表';
 
 
+--死锁的操作
+select oid from pg_class where relname='锁表的表名';
+select pid from pg_locks where relation='上面查出的oid';
 
+如果查询到了结果，表示该表被锁 则需要释放锁定
+select pg_cancel_backend(${上面查到的pid});
+select pg_terminate_backend(上面的pid) 
+select pg_terminate_backend(pid) from pg_locks where relation='上面查出的oid';
+
+我的操作示例：
+select pid from pg_locks where relation=(select oid from pg_class where relname='t_ods_lc_t_product_source_channel_hv');
