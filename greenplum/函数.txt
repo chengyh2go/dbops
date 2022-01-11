@@ -7,3 +7,27 @@ select split_part('abc~@~def~@~ghi','~@~',2)
 -----------------
 -- def
 -- (1 row)
+
+
+select extract(year from now()) or to_char(now(),'yyyy')   -- 获取年
+select extract(mon from now()) or  to_char(now(),'mm')    --  获取月
+select extract(day from now()) or to_char(now(),'dd')   -- 获取日
+select to_char(now(),'ww'); -- 26 获取当前日期是一年中的第几周
+
+
+now()+interval '2 day'   --当前时间往后2天  2020-06-26 16:50:42
+ now()-interval '2 day'   --当前时间往前2天  2020-06-22 16:51:09
+ 
+ now()+interval '1 mon'   --当前时间往后一个月 2020-07-24 16:52:23
+ now()-interval '1 mon'   --当前时间往前一个月 2020-05-24 16:53:04
+
+
+select now(); --2020-06-24 16:43:32 获取当前时间年月日到时分秒
+select to_char(now(),'yyyymmdd'); --20200624
+select to_char(now()  -interval '3 day' , 'YYYYMMDD'); --20200621
+select to_char(now(),'yyyy-mm-dd'); --2020-06-24
+select current_timestamp; --2020-06-24 16:44:53
+select localtimestamp; --2020-06-24 16:45:01
+select localtime; --16:45:22
+select current_time; --16:45:27
+select current_date; --2020-06-24 获取当天日期
