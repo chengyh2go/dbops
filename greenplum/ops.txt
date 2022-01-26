@@ -276,3 +276,15 @@ order by
 from t_unionall   
 group by   
 locktype,datname,relation::regclass,page,tuple,textin(xidout(transactionid)),classid::regclass,objid,objsubid;  
+
+
+--查看最大连接数
+gpconfig -s max_connections
+
+--设置最大连接数
+gpconfig -c max_connections -v 2000 -m 500
+这样就设置了master最大连接数是500，segment的连接数是2000
+
+
+
+
