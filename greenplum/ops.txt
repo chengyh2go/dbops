@@ -1,3 +1,12 @@
+--列属性和数据被拷贝，但不包含约束（如非空）、注释和序列
+CREATE TABLE dest_table_name as SELECT * from source_table_name;
+
+--只复制表结构(默认复制非空约束)，没有数据
+CREATE TABLE dest_table_name (like source_table_name);
+
+--如果索引、主键约束和唯一约束需要被复制的话，那么需要在后面加上参数including indexes
+CREATE TABLE dest_table_name (like source_table_name including indexes);
+
 --查询版本
 select version();
 
