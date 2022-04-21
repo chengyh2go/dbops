@@ -16,6 +16,17 @@ select datname from pg_database;
 -- 查询库占用的存储空间大小
 select pg_size_pretty(pg_database_size( 'MyDatabase' ));
 
+-- 查询各个数据库的存储空间大小
+select datname,pg_size_pretty(pg_database_size(datname)) from pg_database;
+
+--按表查询占用的存储空间大小
+SELECT
+    table_schema || '.' || table_name AS table_full_name,
+    pg_size_pretty(pg_total_relation_size('"' || table_schema || '"."' || table_name || '"')) AS size
+FROM information_schema.tables
+ORDER BY
+    pg_total_relation_size('"' || table_schema || '"."' || table_name || '"') DESC;
+
 --查询表
 select * from pg_class;
 --示例：
