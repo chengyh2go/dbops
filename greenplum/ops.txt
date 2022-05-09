@@ -88,6 +88,9 @@ n.oid = c.relnamespace
 and n.nspname='public'
 and  c.relkind='r'  and relstorage in ('h', 'a');
 
+-- 将某张表的所有权限赋予一个用户
+grant all on table xxx to <user_name>
+
 
 ++++++++++++++++++跟外表相关的操作（以阿里的adb pg环境为例）+++++++++++++++++++++++++++++++++
 -- 1 在AnalyticDB PostgreSQL数据库中创建ODPS FDW插件，写：pg_catalog.pg_extension
