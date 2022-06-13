@@ -1,4 +1,4 @@
---根据表查询analyze相关信息
+--查询analyze相关信息
 select last_analyze, last_autoanalyze, schemaname,relname from pg_stat_user_tables;
 
 --列属性和数据被拷贝，但不包含约束（如非空）、注释和序列
